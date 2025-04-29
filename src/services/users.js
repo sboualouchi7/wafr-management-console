@@ -1,5 +1,5 @@
 // Mock data for MVP
-const mockUsers = [
+let mockUsers = [
     {
       id: '1',
       name: 'Mohammed Alami',
@@ -8,6 +8,8 @@ const mockUsers = [
       balance: 1250.75,
       status: 'active',
       registeredOn: '2023-09-15',
+      address: 'Casablanca, Morocco',
+      birthday: '1990-05-15',
       transactions: [
         { id: 't1', date: '2024-04-22', amount: 250.00, type: 'deposit', status: 'completed' },
         { id: 't2', date: '2024-04-20', amount: -75.50, type: 'withdrawal', status: 'completed' },
@@ -22,6 +24,8 @@ const mockUsers = [
       balance: 3450.25,
       status: 'active',
       registeredOn: '2023-10-05',
+      address: 'Rabat, Morocco',
+      birthday: '1988-11-23',
       transactions: [
         { id: 't4', date: '2024-04-25', amount: 1000.00, type: 'deposit', status: 'completed' },
         { id: 't5', date: '2024-04-18', amount: -250.75, type: 'withdrawal', status: 'completed' },
@@ -36,6 +40,8 @@ const mockUsers = [
       balance: 780.30,
       status: 'blocked',
       registeredOn: '2023-11-20',
+      address: 'Marrakech, Morocco',
+      birthday: '1992-07-08',
       transactions: [
         { id: 't7', date: '2024-04-15', amount: 300.00, type: 'deposit', status: 'completed' },
         { id: 't8', date: '2024-04-12', amount: -50.00, type: 'withdrawal', status: 'completed' },
@@ -81,6 +87,56 @@ const mockUsers = [
           resolve(null);
         }
       }, 300);
+    });
+  };
+  
+  // Update user details
+  export const updateUser = (userId, userData) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const userIndex = mockUsers.findIndex(user => user.id === userId);
+        
+        if (userIndex !== -1) {
+          // Preserve transactions and other properties not in userData
+          const updatedUser = { 
+            ...mockUsers[userIndex],
+            ...userData,
+            // Keep the id unchanged regardless of what was passed
+            id: mockUsers[userIndex].id
+          };
+          mockUsers[userIndex] = updatedUser;
+          resolve(updatedUser);
+        } else {
+          resolve(null);
+        }
+      }, 500);
+    });
+  };
+  
+  // Create new user
+  export const createUser = (userData) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // Generate a new ID
+        const newId = (mockUsers.length + 1).toString();
+        
+        // Create new user with default values for missing fields
+        const newUser = {
+          id: newId,
+          name: userData.name || 'New User',
+          phone: userData.phone || '',
+          email: userData.email || '',
+          balance: userData.balance || 0,
+          status: userData.status || 'active',
+          registeredOn: userData.registeredOn || new Date().toISOString().split('T')[0],
+          address: userData.address || '',
+          birthday: userData.birthday || '',
+          transactions: []
+        };
+        
+        mockUsers.push(newUser);
+        resolve(newUser);
+      }, 500);
     });
   };
   

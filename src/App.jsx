@@ -4,9 +4,13 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+
+// Pages
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import UserManagement from './pages/UserManagement';
+import UsersList from './pages/UsersList';
+import UserDetail from './pages/UserDetail';
+import EditUser from './pages/EditUser';
 
 function App() {
   return (
@@ -21,9 +25,28 @@ function App() {
             </ProtectedRoute>
           } />
           
+          {/* User Management Routes */}
           <Route path="/users" element={
             <ProtectedRoute>
-              <UserManagement />
+              <UsersList />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/users/:userId" element={
+            <ProtectedRoute>
+              <UserDetail />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/users/edit/:userId" element={
+            <ProtectedRoute>
+              <EditUser />
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/users/new" element={
+            <ProtectedRoute>
+              <EditUser />
             </ProtectedRoute>
           } />
           

@@ -3,20 +3,19 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
-
-// Copiez exactement les valeurs fournies par Firebase
+// Utilisation des variables d'environnement
 const firebaseConfig = {
-  apiKey: "AIzaSyCONgOjCc5V6ZcGVhbV9EMXG-LIxxG-ztM",
-  authDomain: "wafr-management-console.firebaseapp.com",
-  projectId: "wafr-management-console",
-  storageBucket: "wafr-management-console.firebasestorage.app",
-  messagingSenderId: "69268951821",
-  appId: "1:69268951821:web:db9c033284b97c70459644",
-  measurementId: "G-5Y42QLVH4W"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Initialiser Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
 
-export { auth };
+export { auth ,googleProvider };
